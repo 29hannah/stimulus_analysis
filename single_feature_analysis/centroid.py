@@ -13,64 +13,43 @@ def abs_file_paths(directory):
             if not f.startswith('.'):
                 yield pathlib.Path(join(dirpath, f))
 
-
 folder_path = pathlib.Path
 
+path1=list(Path('/Users/hannahsmacbook/Test_folder').glob('*dis1*'))
+path2=list(Path('/Users/hannahsmacbook/Test_folder').glob('*dis2*'))
+path3=list(Path('/Users/hannahsmacbook/Test_folder').glob('*dis3*'))
+path4=list(Path('/Users/hannahsmacbook/Test_folder').glob('*dis4*'))
+path5=list(Path('/Users/hannahsmacbook/Test_folder').glob('*dis5*'))
 
-print("Averaged centroid from distance 1 to distance 5:")
+# Define centroid analysis
+def centroid (path):
+    sound_file_paths = [f for f in path]
+    res_list = []
+    for sound_file_path in sound_file_paths:
+        sound = slab.Binaural(sound_file_path)
+        cen = statistics.mean(sound.spectral_feature(feature='centroid'))
+        res_list.append(cen)
+    return res_list
 
-# Distance 1
-path_1 = list(Path('/Users/hannahsmacbook/Pilot_stimuli_2').glob('*dis1*'))
-sound_file_paths_dis1 = [f for f in path_1]
-res_list_1 = []
-for sound_file_path in sound_file_paths_dis1:
-    sound = slab.Binaural(sound_file_path)
-    cen = statistics.mean(sound.spectral_feature(feature='centroid'))
-    res_list_1.append(cen)
+res_list_1=centroid(path1)
+res_list_2=centroid(path2)
+res_list_3=centroid(path3)
+res_list_4=centroid(path4)
+res_list_5=centroid(path5)
+
+'''
 c_1 = (statistics.mean(res_list_1))
 c_sd_1 = (statistics.stdev(res_list_1))
 
-# Distance 2
-path_2 = list(Path('/Users/hannahsmacbook/Pilot_stimuli_2').glob('*dis2*'))
-sound_file_paths_dis2 = [f for f in path_2]
-res_list_2 = []
-for sound_file_path in sound_file_paths_dis2:
-    sound = slab.Binaural(sound_file_path)
-    cen = sound.spectral_feature(feature='centroid')
-    res_list_2.extend(cen)
 c_2 = (statistics.mean(res_list_2))
 c_sd_2 = (statistics.stdev(res_list_2))
 
-# Distance 3
-path_3 = list(Path('/Users/hannahsmacbook/Pilot_stimuli_2').glob('*dis3*'))
-sound_file_paths_dis3 = [f for f in path_3]
-res_list_3 = []
-for sound_file_path in sound_file_paths_dis3:
-    sound = slab.Binaural(sound_file_path)
-    cen = sound.spectral_feature(feature='centroid')
-    res_list_3.extend(cen)
 c_3 = (statistics.mean(res_list_3))
 c_sd_3 = (statistics.stdev(res_list_3))
 
-# Distance 4
-path_4 = list(Path('/Users/hannahsmacbook/Pilot_stimuli_2').glob('*dis4*'))
-sound_file_paths_dis4 = [f for f in path_4]
-res_list_4 = []
-for sound_file_path in sound_file_paths_dis4:
-    sound = slab.Binaural(sound_file_path)
-    cen = sound.spectral_feature(feature='centroid')
-    res_list_4.extend(cen)
 c_4 = (statistics.mean(res_list_4))
 c_sd_4 = (statistics.stdev(res_list_4))
 
-# Distance 5
-path_5 = list(Path('/Users/hannahsmacbook/Pilot_stimuli_2').glob('*dis5*'))
-sound_file_paths_dis5 = [f for f in path_5]
-res_list_5 = []
-for sound_file_path in sound_file_paths_dis5:
-    sound = slab.Binaural(sound_file_path)
-    cen = sound.spectral_feature(feature='centroid')
-    res_list_5.extend(cen)
 c_5 = (statistics.mean(res_list_5))
 c_sd_5 = (statistics.stdev(res_list_5))
 
@@ -87,14 +66,12 @@ print(final_list_stdev)
 print("Relative centroids:")
 rel_cen = [x / c_1 for x in final_list_mean]
 print(rel_cen)
+'''
 
 # Creating boxplot
 # Overall list with all values for each distance
 overall_list = [res_list_1, res_list_2, res_list_3, res_list_4, res_list_5]
 
-'''
-#print(overall_list)
-'''
 
 fig = plt.figure()
 fig.suptitle('Centroid over distance categories', fontsize=10)
@@ -105,7 +82,4 @@ ax.boxplot(overall_list)
 ax.set_xlabel('Distance category')
 ax.set_ylabel('Centroid')
 
-'''
-#plt.show()
-'''
-plt.savefig("pilot2_centroid_overall")
+plt.show()
