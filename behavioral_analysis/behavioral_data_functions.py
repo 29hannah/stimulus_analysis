@@ -6,8 +6,8 @@ import pathlib
 from os.path import join
 import csv
 
-speaker_id = 1
-listener = 'hannah'
+speaker_id = 14
+listener = 'listener-8'
 
 # Get files
 
@@ -25,10 +25,10 @@ folder_path = root + 'Speaker-' + str(speaker_id) + '_files' + '/Speaker-' + str
 all_file_names = [f for f in abs_file_paths(root + 'Speaker-'+str(speaker_id)+'_files/Speaker-'+str(speaker_id)+'_tries/normalised')]
 
 '''
+#Training
 def play_sounds(path):
     for file in path:
         slab.Sound.play_file(file)
-
 
 def training(speaker_id):
     path_1 = list(pathlib.Path(root + 'Speaker-' + str(speaker_id) + '_files' + '/Speaker-' + str(speaker_id) + '_tries/normalised').glob('*dist-1*'))
@@ -73,12 +73,12 @@ def experiment(speaker_id, listener):
         elif response == 53:
             response_list.append("5")
 
-    '''
-    print(sound_id_list)
-    print(len(sound_id_list))
-    print(response_list)
-    print(len(response_list))
-    '''
+
+    #print(sound_id_list)
+    #print(len(sound_id_list))
+    #print(response_list)
+    #print(len(response_list))
+
 
     # Create a list with sound_id and response
     result_list = list(zip(sound_id_list, response_list))
